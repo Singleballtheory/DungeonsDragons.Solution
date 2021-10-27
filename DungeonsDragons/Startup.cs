@@ -23,6 +23,7 @@ namespace DungeonsDragons
             services.AddDbContext<DungeonsDragonsContext>(opt =>
                 opt.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
             services.AddControllers();
+            services.AddSwaggerGen();
 
         }
 
@@ -35,6 +36,13 @@ namespace DungeonsDragons
             }
 
             // app.UseHttpsRedirection();
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+                {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+                });
 
             app.UseRouting();
 
